@@ -23,15 +23,15 @@ describe(
       });
 
       it('Create a new game', () => {
-        expect(newGame).not.toBe(undefined);
+        expect(newGame).not.toBeUndefined();
       });
       it('A new game have correct teams names', () => {
-        expect(newGame.homeTeamName).not.toBe(homeTeamName);
-        expect(newGame.awayTeamName).not.toBe(awayTeamName);
+        expect(newGame.homeTeamName).toBe(homeTeamName);
+        expect(newGame.awayTeamName).toBe(awayTeamName);
       });
       it('A new game have 0 - 0 score', () => {
-        expect(newGame.homeTeamScore).not.toBe(0);
-        expect(newGame.awayTeamScore).not.toBe(0);
+        expect(newGame.homeTeamScore).toBe(0);
+        expect(newGame.awayTeamScore).toBe(0);
       });
       it('A new match is in scoreboard', () => {
         expect(scoreboard).toContainEqual(newGame);
