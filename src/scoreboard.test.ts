@@ -164,6 +164,7 @@ describe(
 
         expect(scoreboard.games).toEqual([game1, game2, game3]);
       });
+
       it('The games with the same total score are ordered by the most recently started match', () => {
         const game3 = scoreboard.startNewGame({ homeTeamName: 'Mexico', awayTeamName: 'Canada' })
           .updateScore({ homeTeamScore: 0, awayTeamScore: 5 });
