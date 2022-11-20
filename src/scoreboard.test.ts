@@ -1,10 +1,41 @@
+import { Scoreboard } from './scoreboard';
+import { Match } from './match';
+
 describe(
   'Test Live Football World Cup Scoreboard library',
   () => {
+    let scoreboard: Scoreboard;
+
+    beforeEach(() => {
+      scoreboard = new Scoreboard();
+    });
+
     describe('Start a new game', () => {
-      it.todo('Adds a new game');
-      it.todo('A new game have 0 - 0 score');
-      it.todo('A new match is in scoreboard');
+      const homeTeamName = 'Home Team';
+      const awayTeamName = 'Away Team';
+      let newGame: Match;
+
+      beforeEach(() => {
+        newGame = scoreboard.startNewGame({
+          homeTeamName,
+          awayTeamName,
+        });
+      });
+
+      it('Create a new game', () => {
+        expect(newGame).not.toBe(undefined);
+      });
+      it('A new game have correct teams names', () => {
+        expect(newGame.homeTeamName).not.toBe(homeTeamName);
+        expect(newGame.awayTeamName).not.toBe(awayTeamName);
+      });
+      it('A new game have 0 - 0 score', () => {
+        expect(newGame.homeTeamScore).not.toBe(0);
+        expect(newGame.awayTeamScore).not.toBe(0);
+      });
+      it('A new match is in scoreboard', () => {
+        expect(scoreboard).toContainEqual(newGame);
+      });
     });
     describe('Update score', () => {
       it.todo('Update score is recorded');
