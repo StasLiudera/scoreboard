@@ -116,21 +116,40 @@ describe(
     });
 
     describe('Finish game currently in progress', () => {
-      const homeTeamName = 'Home Team';
-      const awayTeamName = 'Away Team';
-      let newGame: Match;
-
-      beforeEach(() => {
-        newGame = scoreboard.startNewGame({
-          homeTeamName,
-          awayTeamName,
-        });
-      });
-
       it('Removes a match from the scoreboard', () => {
+        const newGame = scoreboard.startNewGame({
+          homeTeamName: '1',
+          awayTeamName: '2',
+        });
+
         scoreboard.finishGame(newGame);
 
         expect(scoreboard.games).not.toContainEqual(newGame);
+      });
+
+      it('Removes only one match from the scoreboard', () => {
+        const newGame = scoreboard.startNewGame({
+          homeTeamName: '1',
+          awayTeamName: '2',
+        });
+        scoreboard.startNewGame({
+          homeTeamName: '3',
+          awayTeamName: '4',
+        });
+        scoreboard.startNewGame({
+          homeTeamName: '5',
+          awayTeamName: '6',
+        });
+        scoreboard.startNewGame({
+          homeTeamName: '7',
+          awayTeamName: '8',
+        });
+        const gamesCount = scoreboard.games.length;
+
+        scoreboard.finishGame(newGame);
+
+        expect(scoreboard.games).not.toContainEqual(newGame);
+        expect(scoreboard.games.length).toBe(gamesCount - 1);
       });
     });
 

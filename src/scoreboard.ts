@@ -14,6 +14,13 @@ class Scoreboard {
 
     return newGame;
   }
+
+  finishGame(game: Match) {
+    const gameIndex = this.privateGames
+      .findIndex((searchGame) => searchGame === game);
+
+    this.privateGames.splice(gameIndex, 1);
+  }
 }
 
 export default Scoreboard;
