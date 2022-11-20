@@ -50,4 +50,6 @@ class Match {
 export default Match;
 export {
   Match,
+  MatchUpdateScoreProperties,
+  MatchConstructorProperties,
 };

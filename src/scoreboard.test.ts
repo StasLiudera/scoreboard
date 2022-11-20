@@ -34,7 +34,7 @@ describe(
         expect(newGame.awayTeamScore).toBe(0);
       });
       it('A new match is in scoreboard', () => {
-        expect(scoreboard).toContainEqual(newGame);
+        expect(scoreboard.games).toContainEqual(newGame);
       });
     });
     describe('Update score', () => {
