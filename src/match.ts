@@ -21,6 +21,8 @@ class Match {
 
   get awayTeamScore() { return this.privateAwayTeamScore; }
 
+  get score() { return this.privateHomeTeamScore + this.privateAwayTeamScore; }
+
   constructor({ homeTeamName, awayTeamName }: MatchConstructorProperties) {
     this.homeTeamName = homeTeamName;
     this.awayTeamName = awayTeamName;
@@ -44,6 +46,8 @@ class Match {
 
     this.privateHomeTeamScore = homeTeamScore;
     this.privateAwayTeamScore = awayTeamScore;
+
+    return this;
   }
 }
 

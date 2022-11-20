@@ -4,13 +4,14 @@ class Scoreboard {
   private readonly privateGames:Match[] = [];
 
   get games() {
-    return [...this.privateGames];
+    return [...this.privateGames]
+      .sort((game1, game2) => game2.score - game1.score);
   }
 
   startNewGame(props: MatchConstructorProperties) {
     const newGame = new Match(props);
 
-    this.privateGames.push(newGame);
+    this.privateGames.unshift(newGame);
 
     return newGame;
   }
