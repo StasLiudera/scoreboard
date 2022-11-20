@@ -38,9 +38,73 @@ describe(
       });
     });
     describe('Update score', () => {
-      it.todo('Update score is recorded');
-      it.todo('Accept only integers as a score');
-      it.todo('Does not allow negative values as a score');
+      const homeTeamName = 'Home Team';
+      const awayTeamName = 'Away Team';
+      let newGame: Match;
+
+      beforeEach(() => {
+        newGame = scoreboard.startNewGame({
+          homeTeamName,
+          awayTeamName,
+        });
+      });
+
+      it('Update score is recorded', () => {
+        const homeTeamScore = 10;
+        const awayTeamScore = 20;
+
+        newGame.updateScore({
+          homeTeamScore,
+          awayTeamScore,
+        });
+        expect(newGame.homeTeamScore).toBe(homeTeamScore);
+        expect(newGame.awayTeamScore).toBe(awayTeamScore);
+        expect(scoreboard.games).toContainEqual(newGame);
+      });
+      it('Accept only integers as a homeTeamScore', () => {
+        const homeTeamScore = 10.10;
+        const awayTeamScore = 20;
+
+        expect(() => {
+          newGame.updateScore({
+            homeTeamScore,
+            awayTeamScore,
+          });
+        }).toThrow();
+      });
+      it('Accept only integers as a awayTeamScore', () => {
+        const homeTeamScore = 10;
+        const awayTeamScore = 20.10;
+
+        expect(() => {
+          newGame.updateScore({
+            homeTeamScore,
+            awayTeamScore,
+          });
+        }).toThrow();
+      });
+      it('Does not allow negative values as a homeTeamScore', () => {
+        const homeTeamScore = -10;
+        const awayTeamScore = 20;
+
+        expect(() => {
+          newGame.updateScore({
+            homeTeamScore,
+            awayTeamScore,
+          });
+        }).toThrow();
+      });
+      it('Does not allow negative values as a awayTeamScore', () => {
+        const homeTeamScore = 10;
+        const awayTeamScore = -20;
+
+        expect(() => {
+          newGame.updateScore({
+            homeTeamScore,
+            awayTeamScore,
+          });
+        }).toThrow();
+      });
     });
     describe('Finish game currently in progress', () => {
       it.todo('Removes a match from the scoreboard');
