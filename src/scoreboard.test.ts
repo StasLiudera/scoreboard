@@ -153,9 +153,31 @@ describe(
       });
     });
 
-    describe('Get a summary of games in progress', () => {
-      it.todo('The games are ordered by their total score');
-      it.todo('The games with the same total score are ordered by the most recently started match');
+    describe('Get a summary of games in progress order', () => {
+      it('The games are ordered by their total score', () => {
+        const game3 = scoreboard.startNewGame({ homeTeamName: 'Argentina', awayTeamName: 'Australia' })
+          .updateScore({ homeTeamScore: 3, awayTeamScore: 1 });
+        const game1 = scoreboard.startNewGame({ homeTeamName: 'Uruguay', awayTeamName: 'Italy' })
+          .updateScore({ homeTeamScore: 6, awayTeamScore: 6 });
+        const game2 = scoreboard.startNewGame({ homeTeamName: 'Mexico', awayTeamName: 'Canada' })
+          .updateScore({ homeTeamScore: 0, awayTeamScore: 5 });
+
+        expect(scoreboard.games).toEqual([game1, game2, game3]);
+      });
+      it('The games with the same total score are ordered by the most recently started match', () => {
+        const game3 = scoreboard.startNewGame({ homeTeamName: 'Mexico', awayTeamName: 'Canada' })
+          .updateScore({ homeTeamScore: 0, awayTeamScore: 5 });
+        const game2 = scoreboard.startNewGame({ homeTeamName: 'Spain', awayTeamName: 'Brazil' })
+          .updateScore({ homeTeamScore: 10, awayTeamScore: 2 });
+        const game5 = scoreboard.startNewGame({ homeTeamName: 'Germany', awayTeamName: 'France' })
+          .updateScore({ homeTeamScore: 2, awayTeamScore: 2 });
+        const game1 = scoreboard.startNewGame({ homeTeamName: 'Uruguay', awayTeamName: 'Italy' })
+          .updateScore({ homeTeamScore: 6, awayTeamScore: 6 });
+        const game4 = scoreboard.startNewGame({ homeTeamName: 'Argentina', awayTeamName: 'Australia' })
+          .updateScore({ homeTeamScore: 3, awayTeamScore: 1 });
+
+        expect(scoreboard.games).toEqual([game1, game2, game3, game4, game5]);
+      });
     });
   },
 );
