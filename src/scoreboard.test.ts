@@ -4,6 +4,7 @@ describe(
     describe('Start a new game', () => {
       it.todo('Adds a new game');
       it.todo('A new game have 0 - 0 score');
+      it.todo('A new match is in scoreboard');
     });
     describe('Update score', () => {
       it.todo('Update score is recorded');
