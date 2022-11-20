@@ -1,0 +1,8 @@
+# Editor files
+/.idea
+
+# NPM Modules
+/node_modules
+
+# Build files
+/dist
