@@ -180,5 +180,91 @@ describe(
         expect(scoreboard.games).toEqual([game1, game2, game3, game4, game5]);
       });
     });
+
+    describe('Find match in as Scoreboard', () => {
+      let game1: Match;
+      let game2: Match;
+      let game3: Match;
+      let game4: Match;
+      let game5: Match;
+
+      beforeEach(() => {
+        game3 = scoreboard.startNewGame({ homeTeamName: 'Mexico', awayTeamName: 'Canada' })
+          .updateScore({ homeTeamScore: 0, awayTeamScore: 5 });
+        game2 = scoreboard.startNewGame({ homeTeamName: 'Spain', awayTeamName: 'Brazil' })
+          .updateScore({ homeTeamScore: 10, awayTeamScore: 2 });
+        game5 = scoreboard.startNewGame({ homeTeamName: 'Germany', awayTeamName: 'France' })
+          .updateScore({ homeTeamScore: 2, awayTeamScore: 2 });
+        game1 = scoreboard.startNewGame({ homeTeamName: 'Uruguay', awayTeamName: 'Italy' })
+          .updateScore({ homeTeamScore: 6, awayTeamScore: 6 });
+        game4 = scoreboard.startNewGame({ homeTeamName: 'Argentina', awayTeamName: 'Australia' })
+          .updateScore({ homeTeamScore: 3, awayTeamScore: 1 });
+      });
+
+      it('To found game1', () => {
+        const foundGame = scoreboard.findMatch({
+          homeTeamName: game1.homeTeamName,
+          awayTeamName: game1.awayTeamName,
+        });
+
+        expect(foundGame).toEqual(game1);
+      });
+
+      it('Not found game if homeTeamName is incorrect', () => {
+        const foundGame = scoreboard.findMatch({
+          homeTeamName: 'TestName',
+          awayTeamName: game1.awayTeamName,
+        });
+
+        expect(foundGame).toEqual(undefined);
+      });
+
+      it('Not found game1 if awayTeamName is incorrect', () => {
+        const foundGame = scoreboard.findMatch({
+          homeTeamName: game1.homeTeamName,
+          awayTeamName: 'TestName',
+        });
+
+        expect(foundGame).toEqual(undefined);
+      });
+
+      it('Not found game1 if both is incorrect', () => {
+        const foundGame = scoreboard.findMatch({
+          homeTeamName: 'TestName',
+          awayTeamName: 'TestName',
+        });
+
+        expect(foundGame).toEqual(undefined);
+      });
+
+      it('Found game1 even if case insensitive', () => {
+        const foundGame = scoreboard.findMatch({
+          homeTeamName: game1.homeTeamName.toUpperCase(),
+          awayTeamName: game1.awayTeamName.toUpperCase(),
+        });
+
+        expect(foundGame).toEqual(game1);
+      });
+
+      it('Not found game1 if homeTeamName is undefined', () => {
+        const foundGame = scoreboard.findMatch({
+          homeTeamName: undefined as unknown as string,
+          awayTeamName: game1.awayTeamName,
+        });
+
+        expect(foundGame).toEqual(undefined);
+      });
+
+      it('To Not found match if it is removed from scoreboard', () => {
+        scoreboard.finishGame(game1);
+
+        const foundGame = scoreboard.findMatch({
+          homeTeamName: game1.homeTeamName,
+          awayTeamName: game1.awayTeamName,
+        });
+
+        expect(foundGame).toEqual(undefined);
+      });
+    });
   },
 );

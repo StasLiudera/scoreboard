@@ -5,5 +5,8 @@
   "root": true,
   "parserOptions": {
     "project": ["./tsconfig.json"]
+  },
+  "rules": {
+    "implicit-arrow-linebreak": "off"
   }
 }
